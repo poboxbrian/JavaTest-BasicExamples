@@ -4,27 +4,15 @@ import java.util.stream.Stream;
 import java.util.stream.IntStream;
 
 public class MexicanWave {
-/*    private static String[] wave(String str) {
-        int cNum = 0;
-        for(int i=0; i<str.length(); i++) {
-          if (Character.isLetter(str.charAt(i)))
-            cNum++;
-        }
-        String[] result = new String[cNum];
-        StringBuilder sbBuf = new StringBuilder(str);
-        
-        cNum = -1;
-        for(int i=0; i<str.length(); i++) {
-          if (Character.isLetter(str.charAt(i))) {
-            cNum++;
-            sbBuf.setCharAt(i,Character.toUpperCase(str.charAt(i)));
-            result[cNum] = sbBuf.toString();
-            sbBuf.setCharAt(i,Character.toLowerCase(str.charAt(i)));
-          }
-        }
-        return result;
+    // I think this is the better solution
+    private static String[] waveStream(String str) {
+        return IntStream
+                .range(0, str.length())
+                .mapToObj(x -> new StringBuilder(str).replace(x, x+1, String.valueOf(str.charAt(x)).toUpperCase()).toString())
+                .filter(x -> !x.equals(str))
+                .toArray(String[]::new);
     }
-*/
+
     private static String[] wave(String str) {
         int cNum = 0;
         for(int i=0; i<str.length(); i++) {
@@ -42,14 +30,6 @@ public class MexicanWave {
         }
         return result;
       }
-
-    private static String[] waveStream(String str) {
-        return IntStream
-                .range(0, str.length())
-                .mapToObj(x -> new StringBuilder(str).replace(x, x+1, String.valueOf(str.charAt(x)).toUpperCase()).toString())
-                .filter(x -> !x.equals(str))
-                .toArray(String[]::new);
-    }
 
     public static void main(String args[]) {
         String s = "";
